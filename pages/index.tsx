@@ -1,8 +1,9 @@
 import { useState } from "react";
 
 export default function Home() {
-const [answer, SetAnswer] = useState(false);
+// const [answer, setAnswer] = useState(false);
 const [index , setIndex]=useState(0)
+const [score ,setScore] = useState(0);
 const data = [
   {
     qustion:"What is JavaScript?",
@@ -31,13 +32,24 @@ const data = [
 const nextPage = ()=>{
  
   if(index<data.length-1){
+   
     setIndex(index+1);
+
+  }else{
+    alert("You Reached the last Pages ab Back chala ja")
   }
 }
-const previousPage = ()=>{
+const handelChange =(e:any)=>{
+if(e.target.value==data[index].ans){
+  setScore(score+1); 
+}
+}
+const previousPage = (e:any)=>{
  
   if(index>0){
     setIndex(index-1);
+  }else{
+    alert("bhai screen se bhahr niklega kya")
   }
 } 
   return (
@@ -98,6 +110,9 @@ const previousPage = ()=>{
           )
           }
           )} */}
+          <div className="score">
+            <h1>{score}</h1>
+          </div>
           <div className="ques">
               <h3>{data[index].qustion}</h3>
           </div>
@@ -106,7 +121,9 @@ const previousPage = ()=>{
             {data[index].option && data[index].option.map((e:any,i:any)=>{
               return(
                    <div>
-                 <input type="radio" value={e} id={i} />
+                 <input
+                  type="radio" 
+                  value={e} id={i} name="radioButton"  onChange={handelChange} />
                  <label htmlFor={i}>{e}</label>
                   </div>
               )
