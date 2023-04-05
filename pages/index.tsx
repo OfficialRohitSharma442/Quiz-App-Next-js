@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { spawn } from "child_process";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   // const [answer, setAnswer] = useState(false);
@@ -6,81 +7,117 @@ export default function Home() {
   const [score, setScore] = useState(0);
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
-
+  let arr: any = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const checknum = (randomNum: any) => {
+    console.log(randomNum);
+    return randomNum == randomNum;
+  };
   const data = [
     {
-      qustion: "What is JavaScript?",
-      option: [
-        "JavaScript is a scripting language used to make the website interactive",
-        "JavaScript is an assembly language used to make the website interactive",
-        "JavaScript is a compiled language used to make the website interactive",
-        "None of Above",
-      ],
-      ans: "JavaScript is a scripting language used to make the website interactive",
+      question: "What is the capital of France?",
+      options: ["London", "Paris", "Berlin", "Madrid"],
+      answer: "Paris",
     },
     {
-      qustion: " Which of the following is correct about JavaScript?",
-      option: [
-        "JavaScript is an Object-Based language",
-        "JavaScript is Assembly-language",
-        "JavaScript is an Object-Oriented language",
-        "JavaScript is a High-level language",
+      question: "Who painted the Mona Lisa?",
+      options: [
+        "Vincent van Gogh",
+        "Leonardo da Vinci",
+        "Pablo Picasso",
+        "Michelangelo",
       ],
-      ans: "JavaScript is Assembly-language",
+      answer: "Leonardo da Vinci",
     },
     {
-      qustion:
-        "Arrays in JavaScript are defined by which of the following statements?",
-      option: [
-        "It is an ordered list of values",
-        "It is an ordered list of objects",
-        "It is an ordered list of string",
-        "It is an ordered list of functions",
-      ],
-      ans: "It is an ordered list of functions",
+      question: "What is the largest mammal in the world?",
+      options: ["Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
+      answer: "Blue Whale",
     },
     {
-      qustion: "Which of the following is not javascript data types?",
-      option: [
-        "Null type",
-        "Undefined type",
-        "Number type",
-        "All of the mentioned",
+      question: "What is the currency of Japan?",
+      options: ["Dollar", "Euro", "Yen", "Pound"],
+      answer: "Yen",
+    },
+    {
+      question: "What is the tallest mountain in the world?",
+      options: ["Mount Everest", "K2", "Kilimanjaro", "Denali"],
+      answer: "Mount Everest",
+    },
+    {
+      question: "What is the largest country in the world by land area?",
+      options: ["Canada", "Russia", "China", "United States"],
+      answer: "Russia",
+    },
+    {
+      question: "What is the chemical symbol for gold?",
+      options: ["Go", "Au", "Gd", "Ag"],
+      answer: "Au",
+    },
+    {
+      question: "What is the smallest planet in our solar system?",
+      options: ["Venus", "Mars", "Mercury", "Earth"],
+      answer: "Mercury",
+    },
+    {
+      question: "What is the largest planet in our solar system?",
+      options: ["Jupiter", "Saturn", "Neptune", "Uranus"],
+      answer: "Jupiter",
+    },
+    {
+      question: "What is the name of the first man to walk on the moon?",
+      options: [
+        "Buzz Aldrin",
+        "Neil Armstrong",
+        "Yuri Gagarin",
+        "Alan Shepard",
       ],
-      ans: "All of the mentioned",
+      answer: "Neil Armstrong",
     },
   ];
+  // let arrj : any = [];
+  arr[0] = [0];
+  // let i = 0;
   const nextPage = () => {
-    if (index < data.length - 1) {
-      setIndex(index + 1);
+    // debugger;
+    let randomNum = Math.floor(Math.random() * 10);
+    if (arr.includes(randomNum)) {
+      console.log("hi");
     } else {
-      alert(
-        `You completed quiz succfully Your score is ${score} out of ${data.length}...`
-      );
+      console.log("no no no");
     }
-    if (ans == data[index].ans) {
-      setScore(score + 1);
-    }
-    const radio = document.querySelectorAll(".radio");
-    radio.forEach((e: any, i: any) => {
-      if (e.checked) {
-        e.checked = false;
-      }
-    });
-  };
+    // if (arr.includes(randomNum)) {
+    //   randomNum = Math.floor(Math.random() * 10);
+    //   setIndex(Math.floor(Math.random() * 10));
+    //   arr.push(randomNum);
+    // } else {
+    //   setIndex(randomNum);
+    //   arr.push(randomNum);
+    // }
+    // console.log(arr);
 
+    // if (ans == data[index].answer) {
+    //   setScore(score + 1);
+    // }
+    // const radio = document.querySelectorAll(".radio");
+    // radio.forEach((e: any, i: any) => {
+    //   if (e.checked) {
+    //     e.checked = false;
+    //   }
+    // });
+  };
   const handelChange = (e: any) => {
     setAns(e.target.value);
   };
+
   return (
     <>
       <div className="mr-auto align-middle p-5 border-x-sky-950 border-4 border-solid ">
         <div className="ques">
-          <h3>{data[index].qustion}</h3>
+          <h3>{data[index].question}</h3>
         </div>
         <div>
-          {data[index].option &&
-            data[index].option.map((e: any, i: any) => {
+          {data[index].options &&
+            data[index].options.map((e: any, i: any) => {
               return (
                 <div key={i}>
                   <input
