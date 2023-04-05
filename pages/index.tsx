@@ -29,11 +29,17 @@ const data = [
   }
 ]
 const nextPage = ()=>{
-  if(index<data.length){
+ 
+  if(index<data.length-1){
     setIndex(index+1);
   }
 }
-  
+const previousPage = ()=>{
+ 
+  if(index>0){
+    setIndex(index-1);
+  }
+} 
   return (
     <>
       <div className="mr-auto align-middle p-5 border-x-sky-950 border-4 border-solid ">
@@ -107,6 +113,7 @@ const nextPage = ()=>{
           })
           }
           </div>
+           <button onClick={previousPage}>Previous</button>
           <button onClick={nextPage}>Next</button>
       </div>
       </>
