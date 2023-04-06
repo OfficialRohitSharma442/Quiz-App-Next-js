@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 export default function Home() {
   // const [answer, setAnswer] = useState(false);
   const [index, setIndex] = useState(0);
@@ -7,6 +7,7 @@ export default function Home() {
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
+  const [dark, setDark] = useState("");
 
   const data = [
     {
@@ -101,94 +102,111 @@ export default function Home() {
   const handelChange = (e: any) => {
     setAns(e.target.value);
   };
+  const ref = useRef<any>(null);
+  const darkMode = () => {
+    // console.log(ref.classList);
+    ref.current.classList.toggle("dark");
+    // if (
+    //   localStorage.getItem("color-theme") === "dark" ||
+    //   !("color-theme" in localStorage)
+    // ) {
+    //   setDark("dark");
+    // } else {
+    //   setDark("white");
+    // }
+  };
 
   return (
     <>
-      <nav className="bg-gray-50 dark:bg-gray-700 flex justify-between">
-        <div className="max-w-screen-xl px-4 py-3  ">
-          <div className="flex ">
-            <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm justify-start">
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-900 dark:text-white hover:underline"
-                  aria-current="page"
-                >
-                  Home
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Company
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Team
-                </a>
-              </li>
-              <li>
-                <a
-                  href="#"
-                  className="text-gray-900 dark:text-white hover:underline"
-                >
-                  Features
-                </a>
-              </li>
-            </ul>
+      <div ref={ref} className="sfl" onClick={darkMode}>
+        <div className="dark:bg-[#192734] h-[100vh]">
+          <nav className="bg-gray-700 dark:bg-gray-700 flex justify-between">
+            <div className="max-w-screen-xl px-4 py-3  ">
+              <div className="flex ">
+                <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm justify-start">
+                  <li>
+                    <a
+                      href="#"
+                      className="text-white-900 dark:text-white hover:underline"
+                      aria-current="page"
+                    >
+                      Home
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-900 dark:text-white hover:underline"
+                    >
+                      Company
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-900 dark:text-white hover:underline "
+                    >
+                      Team
+                    </a>
+                  </li>
+                  <li>
+                    <a
+                      href="#"
+                      className="text-gray-900 dark:text-white hover:underline "
+                    >
+                      Features
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white ">
+              <button>DarkMode</button>
+            </div>
+          </nav>
+          <div className="mr-auto align-middle p-5  border-4 border-solid  ">
+            <div className="">
+              <h1 className="font-extrabold text-5xl mb-5 		font-noto dark:text-white">
+                {data[index].question}
+              </h1>
+            </div>
+            <div>
+              {data[index].options &&
+                data[index].options.map((e: any, i: any) => {
+                  return (
+                    <div
+                      key={i}
+                      className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center"
+                    >
+                      <input
+                        type="radio"
+                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
+                        value={e}
+                        id={i}
+                        name="radioButton"
+                        onChange={handelChange}
+                      />
+                      <label
+                        className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                        htmlFor={i}
+                      >
+                        {e}
+                      </label>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+          <div className="flex justify-around float-right absolute bottom-0 right-0">
+            <button
+              className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white dark:text-black dark:focus:ring-gray-700 dark:border-gray-700`}
+              onClick={generateRandomNumber}
+              disabled={flag}
+            >
+              Next
+            </button>
           </div>
         </div>
-        <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm ">
-          <button>DarkMode</button>
-        </div>
-      </nav>
-      <div className="mr-auto align-middle p-5 border-x-sky-950 border-4 border-solid  ">
-        <div className="">
-          <h1 className="font-extrabold text-5xl mb-5 shadow-sm	shadow-gray-50 	font-noto">
-            {data[index].question}
-          </h1>
-        </div>
-        <div>
-          {data[index].options &&
-            data[index].options.map((e: any, i: any) => {
-              return (
-                <div
-                  key={i}
-                  className="p-3 bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center"
-                >
-                  <input
-                    type="radio"
-                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
-                    value={e}
-                    id={i}
-                    name="radioButton"
-                    onChange={handelChange}
-                  />
-                  <label
-                    className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                    htmlFor={i}
-                  >
-                    {e}
-                  </label>
-                </div>
-              );
-            })}
-        </div>
-      </div>
-      <div className="flex justify-around float-right absolute bottom-0 right-0">
-        <button
-          className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
-          onClick={generateRandomNumber}
-          disabled={flag}
-        >
-          Next
-        </button>
       </div>
     </>
   );
