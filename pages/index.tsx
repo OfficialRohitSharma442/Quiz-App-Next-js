@@ -1,17 +1,13 @@
 import { spawn } from "child_process";
-import { useEffect, useState } from "react";
-
+import { useEffect, useState } from "react";  
 export default function Home() {
   // const [answer, setAnswer] = useState(false);
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
-  let arr: any = [1, 2, 3, 4, 5, 6, 7, 8, 9];
-  const checknum = (randomNum: any) => {
-    console.log(randomNum);
-    return randomNum == randomNum;
-  };
+  const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
+
   const data = [
     {
       question: "What is the capital of France?",
@@ -74,36 +70,32 @@ export default function Home() {
       answer: "Neil Armstrong",
     },
   ];
-  // let arrj : any = [];
-  arr[0] = [0];
-  // let i = 0;
-  const nextPage = () => {
-    // debugger;
-    let randomNum = Math.floor(Math.random() * 10);
-    if (arr.includes(randomNum)) {
-      console.log("hi");
-    } else {
-      console.log("no no no");
+  const generateRandomNumber = () => {
+    if (generatedNumbers.length + 1 === data.length) {
+      alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
+      return null;
     }
-    // if (arr.includes(randomNum)) {
-    //   randomNum = Math.floor(Math.random() * 10);
-    //   setIndex(Math.floor(Math.random() * 10));
-    //   arr.push(randomNum);
-    // } else {
-    //   setIndex(randomNum);
-    //   arr.push(randomNum);
-    // }
-    // console.log(arr);
 
-    // if (ans == data[index].answer) {
-    //   setScore(score + 1);
-    // }
-    // const radio = document.querySelectorAll(".radio");
-    // radio.forEach((e: any, i: any) => {
-    //   if (e.checked) {
-    //     e.checked = false;
-    //   }
-    // });
+    let randomNumber: any;
+    do {
+      randomNumber = Math.floor(Math.random() * 10);
+    } while (generatedNumbers.includes(randomNumber));
+
+    setGeneratedNumbers([...generatedNumbers, randomNumber]);
+    console.log(generatedNumbers);
+    setIndex(randomNumber);
+    increseScore();
+  };
+  const increseScore = () => {
+    if (ans == data[index].answer) {
+      setScore(score + 1);
+    }
+    const radio = document.querySelectorAll(".radio");
+    radio.forEach((e: any, i: any) => {
+      if (e.checked) {
+        e.checked = false;
+      }
+    });
   };
   const handelChange = (e: any) => {
     setAns(e.target.value);
@@ -136,7 +128,7 @@ export default function Home() {
         <div className="flex justify-around">
           <button
             className="border-x-2 border-y-2 p-2 bg-slate-900 text-white"
-            onClick={nextPage}
+            onClick={generateRandomNumber}
           >
             Next
           </button>
