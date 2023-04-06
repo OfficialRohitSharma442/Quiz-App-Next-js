@@ -2,6 +2,7 @@ import { spawn } from "child_process";
 import { useEffect, useRef, useState } from "react";
 export default function Home() {
   // const [answer, setAnswer] = useState(false);
+
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [flag, setFlag] = useState(false);
@@ -104,21 +105,13 @@ export default function Home() {
   };
   const ref = useRef<any>(null);
   const darkMode = () => {
-    // console.log(ref.classList);
+    console.log("hello");
     ref.current.classList.toggle("dark");
-    // if (
-    //   localStorage.getItem("color-theme") === "dark" ||
-    //   !("color-theme" in localStorage)
-    // ) {
-    //   setDark("dark");
-    // } else {
-    //   setDark("white");
-    // }
   };
 
   return (
     <>
-      <div ref={ref} className="sfl" onClick={darkMode}>
+      <div ref={ref} className="sfl">
         <div className="dark:bg-[#192734] h-[100vh]">
           <nav className="bg-gray-700 dark:bg-gray-700 flex justify-between">
             <div className="max-w-screen-xl px-4 py-3  ">
@@ -161,10 +154,10 @@ export default function Home() {
               </div>
             </div>
             <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white ">
-              <button>DarkMode</button>
+              <button onClick={darkMode}>DarkMode</button>
             </div>
           </nav>
-          <div className="mr-auto align-middle p-5  border-4 border-solid  ">
+          <div className="m-auto mt-[50px] align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
             <div className="">
               <h1 className="font-extrabold text-5xl mb-5 		font-noto dark:text-white">
                 {data[index].question}
@@ -197,11 +190,11 @@ export default function Home() {
                 })}
             </div>
           </div>
-          <div className="flex justify-around float-right absolute bottom-0 right-0">
+          <div className="flex justify-around  absolute bottom-0 right-0">
             <button
               className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white dark:text-black dark:focus:ring-gray-700 dark:border-gray-700`}
               onClick={generateRandomNumber}
-              disabled={flag}
+              // disabled={flag}
             >
               Next
             </button>
