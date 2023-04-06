@@ -1,5 +1,5 @@
 import { spawn } from "child_process";
-import { useEffect, useState } from "react";  
+import { useEffect, useState } from "react";
 export default function Home() {
   // const [answer, setAnswer] = useState(false);
   const [index, setIndex] = useState(0);
@@ -73,6 +73,7 @@ export default function Home() {
   const generateRandomNumber = () => {
     if (generatedNumbers.length + 1 === data.length) {
       alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
+      setFlag(true);
       return null;
     }
 
@@ -103,36 +104,91 @@ export default function Home() {
 
   return (
     <>
-      <div className="mr-auto align-middle p-5 border-x-sky-950 border-4 border-solid ">
-        <div className="ques">
-          <h3>{data[index].question}</h3>
+      <nav className="bg-gray-50 dark:bg-gray-700 flex justify-between">
+        <div className="max-w-screen-xl px-4 py-3  ">
+          <div className="flex ">
+            <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm justify-start">
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-900 dark:text-white hover:underline"
+                  aria-current="page"
+                >
+                  Home
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-900 dark:text-white hover:underline"
+                >
+                  Company
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-900 dark:text-white hover:underline"
+                >
+                  Team
+                </a>
+              </li>
+              <li>
+                <a
+                  href="#"
+                  className="text-gray-900 dark:text-white hover:underline"
+                >
+                  Features
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm ">
+          <button>DarkMode</button>
+        </div>
+      </nav>
+      <div className="mr-auto align-middle p-5 border-x-sky-950 border-4 border-solid  ">
+        <div className="">
+          <h1 className="font-extrabold text-5xl mb-5 shadow-sm	shadow-gray-50 	font-noto">
+            {data[index].question}
+          </h1>
         </div>
         <div>
           {data[index].options &&
             data[index].options.map((e: any, i: any) => {
               return (
-                <div key={i}>
+                <div
+                  key={i}
+                  className="p-3 bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center"
+                >
                   <input
                     type="radio"
-                    className="radio"
+                    className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
                     value={e}
                     id={i}
                     name="radioButton"
                     onChange={handelChange}
                   />
-                  <label htmlFor={i}>{e}</label>
+                  <label
+                    className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                    htmlFor={i}
+                  >
+                    {e}
+                  </label>
                 </div>
               );
             })}
         </div>
-        <div className="flex justify-around">
-          <button
-            className="border-x-2 border-y-2 p-2 bg-slate-900 text-white"
-            onClick={generateRandomNumber}
-          >
-            Next
-          </button>
-        </div>
+      </div>
+      <div className="flex justify-around float-right absolute bottom-0 right-0">
+        <button
+          className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700`}
+          onClick={generateRandomNumber}
+          disabled={flag}
+        >
+          Next
+        </button>
       </div>
     </>
   );
