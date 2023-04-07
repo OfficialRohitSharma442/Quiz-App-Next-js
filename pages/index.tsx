@@ -105,7 +105,7 @@ export default function Home() {
 
   return (
     <>
-      <div className={`${dark ? "dark" : " "}`}>
+      <div>
         <div className="dark:bg-[#192734] ">
           <div className="h-[calc(100vh-44px)] flex items-center">
             <div className="m-auto  align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">

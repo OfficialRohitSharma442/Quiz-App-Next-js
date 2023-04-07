@@ -1,6 +1,10 @@
 import { themes } from "@/context/context";
 import Link from "next/link";
 import { useContext } from "react";
+import Image from "next/image";
+import moon from "../assets/moon-svgrepo-com.svg";
+import sun from "../assets/sunSvg.svg";
+import { spawn } from "child_process";
 
 const Header = () => {
   const { dark, setDark, darkMode } = useContext(themes);
@@ -13,7 +17,7 @@ const Header = () => {
             <li>
               <Link
                 href="/"
-                className="text-gray-900 dark:text-white hover:underline active:text-orange-400 "
+                className="text-gray-900 dark:text-white hover:underline "
               >
                 Home
               </Link>
@@ -46,7 +50,13 @@ const Header = () => {
         </div>
       </div>
       <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white active:text-orange-400">
-        <button onClick={darkMode}>DarkMode</button>
+        <Image
+          src={dark ? sun : moon}
+          height={24}
+          width={24}
+          alt="svg"
+          onClick={darkMode}
+        />
       </div>
     </nav>
   );

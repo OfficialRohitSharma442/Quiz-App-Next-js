@@ -10,18 +10,21 @@ export default function App({ Component, pageProps }: AppProps) {
     if (localStorage.getItem("DarkMode") !== "dark") {
       localStorage.setItem("DarkMode", "dark");
       setDark(true);
+      document.body.classList.add("dark");
     } else {
       localStorage.setItem("DarkMode", "white");
       setDark(false);
+      document.body.classList.remove("dark");
     }
   };
   useEffect(() => {
     if (localStorage.getItem("DarkMode") === "dark") {
       setDark(true);
-      // console.log("hello1");
+      document.body.classList.add("dark");
+    } else {
+      document.body.classList.remove("dark");
+      setDark(false);
     }
-    // console.log("hello2");
-    // let a = localStorage.getItem("DarkMode") === "dark";
   }, []);
   return (
     <themes.Provider value={{ dark, setDark, darkMode }}>

@@ -12,6 +12,18 @@ const About = () => {
               title="Accordion One "
               content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quo eligendi suscipit soluta perspiciatis, porro nemo enim expedita dolore nesciunt sit eaque, modi consequuntur nobis, eum accusamus voluptatum ducimus! Dicta fugiat alias eligendi, itaque inventore dolores ut possimus earum fuga, harum, quibusdam tenetur sequi sed velit voluptatem perferendis. Illum, dolore. "
             />
+            <Accordion
+              title="Accordion One "
+              content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quo eligendi suscipit soluta perspiciatis, porro nemo enim expedita dolore nesciunt sit eaque, modi consequuntur nobis, eum accusamus voluptatum ducimus! Dicta fugiat alias eligendi, itaque inventore dolores ut possimus earum fuga, harum, quibusdam tenetur sequi sed velit voluptatem perferendis. Illum, dolore. "
+            />
+            <Accordion
+              title="Accordion One "
+              content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quo eligendi suscipit soluta perspiciatis, porro nemo enim expedita dolore nesciunt sit eaque, modi consequuntur nobis, eum accusamus voluptatum ducimus! Dicta fugiat alias eligendi, itaque inventore dolores ut possimus earum fuga, harum, quibusdam tenetur sequi sed velit voluptatem perferendis. Illum, dolore. "
+            />
+            <Accordion
+              title="Accordion One "
+              content="Lorem ipsum dolor sit amet consectetur adipisicing elit. Iste quo eligendi suscipit soluta perspiciatis, porro nemo enim expedita dolore nesciunt sit eaque, modi consequuntur nobis, eum accusamus voluptatum ducimus! Dicta fugiat alias eligendi, itaque inventore dolores ut possimus earum fuga, harum, quibusdam tenetur sequi sed velit voluptatem perferendis. Illum, dolore. "
+            />
           </div>
         </div>
       </div>
