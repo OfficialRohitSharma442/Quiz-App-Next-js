@@ -1,14 +1,13 @@
-import { spawn } from "child_process";
-import { useEffect, useRef, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import { themes } from "@/context/context";
 export default function Home() {
-  // const [answer, setAnswer] = useState(false);
-
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
-  const [dark, setDark] = useState(false);
+  // const [dark, setDark] = useState(false);
+  const { dark, setDark } = useContext(themes);
 
   const data = [
     {
@@ -103,100 +102,42 @@ export default function Home() {
   const handelChange = (e: any) => {
     setAns(e.target.value);
   };
-  const darkMode = () => {
-    if (localStorage.getItem("DarkMode") != "dark") {
-      localStorage.setItem("DarkMode", "dark");
-      setDark(true);
-    } else {
-      localStorage.setItem("DarkMode", "white");
-      setDark(false);
-    }
-  };
-  useEffect(() => {
-    if (localStorage.getItem("DarkMode") === "dark") {
-      // localStorage.setItem("DarkMode", "dark");
-      setDark(true);
-    }
-  }, []);
+
   return (
     <>
-      <div className={dark ? "dark" : " "}>
-        <div className="dark:bg-[#192734] h-[100vh]">
-          <nav className="bg-gray-700 dark:bg-gray-700 flex justify-between">
-            <div className="max-w-screen-xl px-4 py-3  ">
-              <div className="flex ">
-                <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm justify-start">
-                  <li>
-                    <a
-                      href="#"
-                      className="text-white-900 dark:text-white hover:underline"
-                      aria-current="page"
-                    >
-                      Home
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-900 dark:text-white hover:underline"
-                    >
-                      Company
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-900 dark:text-white hover:underline "
-                    >
-                      Team
-                    </a>
-                  </li>
-                  <li>
-                    <a
-                      href="#"
-                      className="text-gray-900 dark:text-white hover:underline "
-                    >
-                      Features
-                    </a>
-                  </li>
-                </ul>
-              </div>
-            </div>
-            <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white ">
-              <button onClick={darkMode}>DarkMode</button>
-            </div>
-          </nav>
-          <div className="m-auto mt-[50px] align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
-            <div className="">
+      <div className={`${dark ? "dark" : " "}`}>
+        <div className="dark:bg-[#192734] ">
+          <div className="h-[calc(100vh-44px)] flex items-center">
+            <div className="m-auto  align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
               <h1 className="font-extrabold text-3xl mb-5 		font-noto dark:text-white">
                 {data[index].question}
               </h1>
-            </div>
-            <div>
-              {data[index].options &&
-                data[index].options.map((e: any, i: any) => {
-                  return (
-                    <div
-                      key={i}
-                      className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center hover:bg-orange-400"
-                    >
-                      <input
-                        type="radio"
-                        className="radio w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
-                        value={e}
-                        id={i}
-                        name="radioButton"
-                        onChange={handelChange}
-                      />
-                      <label
-                        className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                        htmlFor={i}
+              <div>
+                {data[index].options &&
+                  data[index].options.map((e: any, i: any) => {
+                    return (
+                      <div
+                        key={i}
+                        className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center hover:bg-orange-400"
                       >
-                        {e}
-                      </label>
-                    </div>
-                  );
-                })}
+                        <input
+                          type="radio"
+                          className="radio w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
+                          value={e}
+                          id={i}
+                          name="radioButton"
+                          onChange={handelChange}
+                        />
+                        <label
+                          className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
+                          htmlFor={i}
+                        >
+                          {e}
+                        </label>
+                      </div>
+                    );
+                  })}
+              </div>
             </div>
           </div>
           <div className="flex justify-around  absolute bottom-0 right-0">
