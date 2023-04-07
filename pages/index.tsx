@@ -8,7 +8,7 @@ export default function Home() {
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
-  const [dark, setDark] = useState("");
+  const [dark, setDark] = useState(false);
 
   const data = [
     {
@@ -103,15 +103,24 @@ export default function Home() {
   const handelChange = (e: any) => {
     setAns(e.target.value);
   };
-  const ref = useRef<any>(null);
   const darkMode = () => {
-    console.log("hello");
-    ref.current.classList.toggle("dark");
+    if (localStorage.getItem("DarkMode") != "dark") {
+      localStorage.setItem("DarkMode", "dark");
+      setDark(true);
+    } else {
+      localStorage.setItem("DarkMode", "white");
+      setDark(false);
+    }
   };
-
+  useEffect(() => {
+    if (localStorage.getItem("DarkMode") === "dark") {
+      // localStorage.setItem("DarkMode", "dark");
+      setDark(true);
+    }
+  }, []);
   return (
     <>
-      <div ref={ref} className="sfl">
+      <div className={dark ? "dark" : " "}>
         <div className="dark:bg-[#192734] h-[100vh]">
           <nav className="bg-gray-700 dark:bg-gray-700 flex justify-between">
             <div className="max-w-screen-xl px-4 py-3  ">
@@ -159,7 +168,7 @@ export default function Home() {
           </nav>
           <div className="m-auto mt-[50px] align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
             <div className="">
-              <h1 className="font-extrabold text-5xl mb-5 		font-noto dark:text-white">
+              <h1 className="font-extrabold text-3xl mb-5 		font-noto dark:text-white">
                 {data[index].question}
               </h1>
             </div>
@@ -169,11 +178,11 @@ export default function Home() {
                   return (
                     <div
                       key={i}
-                      className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center"
+                      className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center hover:bg-orange-400"
                     >
                       <input
                         type="radio"
-                        className="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
+                        className="radio w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
                         value={e}
                         id={i}
                         name="radioButton"
@@ -194,7 +203,6 @@ export default function Home() {
             <button
               className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white dark:text-black dark:focus:ring-gray-700 dark:border-gray-700`}
               onClick={generateRandomNumber}
-              // disabled={flag}
             >
               Next
             </button>
