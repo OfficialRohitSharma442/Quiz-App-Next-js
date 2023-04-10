@@ -75,16 +75,18 @@ export default function Home() {
   ];
   // console.log(data);
   const generateRandomNumber = () => {
-    if (generatedNumbers.length == data.length - 1) {
+    if (generatedNumbers.length == data.length) {
       alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
 
       return null;
     }
-    let randomNumber: any;
-    do {
-      randomNumber = Math.floor(Math.random() * 10);
-    } while (generatedNumbers.includes(randomNumber));
+    let randomNumber: any = Math.floor(Math.random() * 10);
+    // while (){
 
+    // };
+    if (generatedNumbers.includes(randomNumber)) {
+      generateRandomNumber();
+    }
     setGeneratedNumbers([...generatedNumbers, randomNumber]);
     // console.log(generatedNumbers);
     setTimeout(() => {
@@ -144,7 +146,6 @@ export default function Home() {
     });
     // console.log(e);
     e.target.classList.add("bg-yellow-500");
-    
   };
 
   return (
@@ -193,6 +194,7 @@ export default function Home() {
               onClick={generateRandomNumber}
               disabled={!flag ? true : false}
             >
+              <span className="w-full border-b	"></span>
               Next
             </button>
           </div>
