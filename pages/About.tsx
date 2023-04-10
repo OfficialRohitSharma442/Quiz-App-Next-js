@@ -6,7 +6,7 @@ const About = () => {
   return (
     <>
       <div className={`${dark ? "dark" : " "}`}>
-        <div className=" h-[calc(100vh-44px)] dark:bg-[#192734]  dark:text-white">
+        <div className=" h-[calc(100vh-44px)] dark:bg-[#192734] dark:text-white overflow-hidden">
           <div className="">
             <Accordion
               title="Accordion One "

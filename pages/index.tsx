@@ -1,13 +1,13 @@
 import { useContext, useEffect, useState } from "react";
-import { themes } from "@/context/context";
+// import { themes } from "@/context/context";
 export default function Home() {
   const [index, setIndex] = useState<any>();
   const [score, setScore] = useState(0);
-  // const [flag, setFlag] = useState(false);
+  const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState();
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
   // const [dark, setDark] = useState(false);
-  const { dark, setDark } = useContext(themes);
+  // const { dark, setDark } = useContext(themes);
   useEffect(() => {
     setIndex(Math.floor(Math.random() * 10));
   }, []);
@@ -73,8 +73,9 @@ export default function Home() {
       answer: "Neil Armstrong",
     },
   ];
+  // console.log(data);
   const generateRandomNumber = () => {
-    if (generatedNumbers.length + 1 === data.length) {
+    if (generatedNumbers.length == data.length - 1) {
       alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
 
       return null;
@@ -101,6 +102,7 @@ export default function Home() {
         elem.classList.add("bg-red-400");
       }
     });
+    console.log(generatedNumbers);
   };
 
   const increseScore = () => {
@@ -123,10 +125,15 @@ export default function Home() {
         event.classList.remove("bg-green-400");
       }, 2000);
     });
+    setFlag(false);
+    console.log("rendom array", generatedNumbers);
+    console.log("index => ", index);
   };
   const handelChange = (e: any, result: any) => {
     // alert("hello")
+
     setAns(result);
+    setFlag(true);
     // console.log(e.target.childNodes[0].innerText);
     // console.log();
     const label = document.querySelectorAll(".labelsp");
@@ -135,7 +142,9 @@ export default function Home() {
         event.classList.remove("bg-yellow-500");
       }
     });
+    // console.log(e);
     e.target.classList.add("bg-yellow-500");
+    
   };
 
   return (
@@ -144,38 +153,37 @@ export default function Home() {
         <div className="dark:bg-[#192734] ">
           <div className="h-[calc(100vh-92px)] flex items-center">
             <div className="m-auto  align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
-              <h1 className="font-extrabold text-3xl mb-5 		font-noto dark:text-white">
-                {index && data[index].question}
+              <h1 className="font-extrabold text-3xl mb-5 font-noto dark:text-white">
+                {index ? data[index].question : ""}
               </h1>
               <div>
-                {index &&
-                  data[index].options.map((e: any, i: any) => {
-                    return (
-                      <>
-                        {/* <div key={e}> */}
-                        <input
-                          type="radio"
-                          className="radio hidden"
-                          value={e}
-                          id={i}
-                          name="radioButton"
-                        />
-                        <label
-                          htmlFor={i}
-                          key={i}
-                          onClick={(p) => {
-                            handelChange(p, e);
-                          }}
-                          className="cursor-pointer	labelsp p-4 bg-gray-600 text-white mb-3 last:mb-0 rounded-md block hover:bg-orange-400"
-                        >
-                          <span className="p-3 ml-2 text-sm font-medium !bg-transparent	 text-gray-900 dark:text-gray-300">
-                            {e}
-                          </span>
-                        </label>
-                        {/* </div> */}
-                      </>
-                    );
-                  })}
+                {index
+                  ? data[index].options.map((e: any, i: any) => {
+                      return (
+                        <>
+                          <div className="" key={e}>
+                            <input
+                              type="radio"
+                              className="radio hidden"
+                              value={e}
+                              id={i}
+                              name="radioButton"
+                            />
+                            <label
+                              htmlFor={i}
+                              key={i}
+                              onClick={(p) => {
+                                handelChange(p, e);
+                              }}
+                              className="cursor-pointer	labelsp p-4 bg-gray-600 m-3 last:mb-0 rounded-md block hover:bg-orange-400 ml-2 text-sm font-medium  text-gray-900 dark:text-gray-300"
+                            >
+                              {e}
+                            </label>
+                          </div>
+                        </>
+                      );
+                    })
+                  : " "}
               </div>
             </div>
           </div>
@@ -183,6 +191,7 @@ export default function Home() {
             <button
               className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white dark:text-black dark:focus:ring-gray-700 dark:border-gray-700`}
               onClick={generateRandomNumber}
+              disabled={!flag ? true : false}
             >
               Next
             </button>
