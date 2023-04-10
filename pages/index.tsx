@@ -1,14 +1,16 @@
 import { useContext, useEffect, useState } from "react";
 import { themes } from "@/context/context";
 export default function Home() {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState<any>();
   const [score, setScore] = useState(0);
   // const [flag, setFlag] = useState(false);
-  const [ans, setAns] = useState("");
+  const [ans, setAns] = useState();
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
   // const [dark, setDark] = useState(false);
   const { dark, setDark } = useContext(themes);
-
+  useEffect(() => {
+    setIndex(Math.floor(Math.random() * 10));
+  }, []);
   const data = [
     {
       question: "What is the capital of France?",
@@ -74,10 +76,9 @@ export default function Home() {
   const generateRandomNumber = () => {
     if (generatedNumbers.length + 1 === data.length) {
       alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
-      // setFlag(true);
+
       return null;
     }
-
     let randomNumber: any;
     do {
       randomNumber = Math.floor(Math.random() * 10);
@@ -85,14 +86,28 @@ export default function Home() {
 
     setGeneratedNumbers([...generatedNumbers, randomNumber]);
     // console.log(generatedNumbers);
-    setIndex(randomNumber);
+    setTimeout(() => {
+      setIndex(randomNumber);
+    }, 2000);
     increseScore();
+    let label = document.querySelectorAll(".labelsp");
+    console.log(label);
+    label.forEach((elem: any) => {
+      console.log(elem.innerText);
+      if (elem.innerText === data[index].answer) {
+        elem.classList;
+        elem.classList.add("bg-green-400");
+      } else if (ans === elem.innerText) {
+        elem.classList.add("bg-red-400");
+      }
+    });
   };
+
   const increseScore = () => {
     if (ans == data[index].answer) {
       setScore(1 + score);
     }
-    // alert(score);
+
     const radio = document.querySelectorAll(".radio");
     radio.forEach((e: any, i: any) => {
       if (e.checked) {
@@ -101,36 +116,39 @@ export default function Home() {
     });
     const label = document.querySelectorAll(".labelsp");
     label.forEach((event) => {
-      if (event.classList.contains("bg-green-500")) {
-        event.classList.remove("bg-green-500");
-      }
+      event.classList.remove("bg-yellow-500");
+      event.classList.remove("bg-red-400");
+      setTimeout(() => {
+        event.classList.remove("bg-red-400");
+        event.classList.remove("bg-green-400");
+      }, 2000);
     });
-    // alert(score);
   };
-  const handelChange = (e: any) => {
-    // console.log(e.target.htmlFor);
-    setAns(e.target.htmlFor);
+  const handelChange = (e: any, result: any) => {
+    // alert("hello")
+    setAns(result);
+    // console.log(e.target.childNodes[0].innerText);
+    // console.log();
     const label = document.querySelectorAll(".labelsp");
     label.forEach((event) => {
-      if (event.classList.contains("bg-green-500")) {
-        // console.log("hi");
-        event.classList.remove("bg-green-500");
+      if (event.classList.contains("bg-yellow-500")) {
+        event.classList.remove("bg-yellow-500");
       }
     });
-    e.target.classList.add("bg-green-500");
+    e.target.classList.add("bg-yellow-500");
   };
 
   return (
     <>
       <div>
         <div className="dark:bg-[#192734] ">
-          <div className="h-[calc(100vh-44px)] flex items-center">
+          <div className="h-[calc(100vh-92px)] flex items-center">
             <div className="m-auto  align-middle p-5 mr border-4 border-solid w-[70%] rounded-lg">
               <h1 className="font-extrabold text-3xl mb-5 		font-noto dark:text-white">
-                {data[index].question}
+                {index && data[index].question}
               </h1>
               <div>
-                {data[index].options &&
+                {index &&
                   data[index].options.map((e: any, i: any) => {
                     return (
                       <>
@@ -139,16 +157,18 @@ export default function Home() {
                           type="radio"
                           className="radio hidden"
                           value={e}
-                          id={e}
+                          id={i}
                           name="radioButton"
                         />
                         <label
-                          htmlFor={e}
+                          htmlFor={i}
                           key={i}
-                          onClick={handelChange}
+                          onClick={(p) => {
+                            handelChange(p, e);
+                          }}
                           className="cursor-pointer	labelsp p-4 bg-gray-600 text-white mb-3 last:mb-0 rounded-md block hover:bg-orange-400"
                         >
-                          <span className="p-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                          <span className="p-3 ml-2 text-sm font-medium !bg-transparent	 text-gray-900 dark:text-gray-300">
                             {e}
                           </span>
                         </label>
@@ -159,7 +179,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="flex justify-around  absolute bottom-0 right-0">
+          <div className="flex justify-end">
             <button
               className={`text-white bg-gray-800 hover:bg-gray-900 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 mr-2 mb-2 dark:bg-white dark:text-black dark:focus:ring-gray-700 dark:border-gray-700`}
               onClick={generateRandomNumber}
