@@ -3,7 +3,7 @@ import { themes } from "@/context/context";
 export default function Home() {
   const [index, setIndex] = useState(0);
   const [score, setScore] = useState(0);
-  const [flag, setFlag] = useState(false);
+  // const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState("");
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
   // const [dark, setDark] = useState(false);
@@ -74,7 +74,7 @@ export default function Home() {
   const generateRandomNumber = () => {
     if (generatedNumbers.length + 1 === data.length) {
       alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
-      setFlag(true);
+      // setFlag(true);
       return null;
     }
 
@@ -84,23 +84,40 @@ export default function Home() {
     } while (generatedNumbers.includes(randomNumber));
 
     setGeneratedNumbers([...generatedNumbers, randomNumber]);
-    console.log(generatedNumbers);
+    // console.log(generatedNumbers);
     setIndex(randomNumber);
     increseScore();
   };
   const increseScore = () => {
     if (ans == data[index].answer) {
-      setScore(score + 1);
+      setScore(1 + score);
     }
+    // alert(score);
     const radio = document.querySelectorAll(".radio");
     radio.forEach((e: any, i: any) => {
       if (e.checked) {
         e.checked = false;
       }
     });
+    const label = document.querySelectorAll(".labelsp");
+    label.forEach((event) => {
+      if (event.classList.contains("bg-[#0891b2]")) {
+        event.classList.remove("bg-[#0891b2]");
+      }
+    });
+    // alert(score);
   };
   const handelChange = (e: any) => {
-    setAns(e.target.value);
+    // console.log(e.target.htmlFor);
+    setAns(e.target.htmlFor);
+    const label = document.querySelectorAll(".labelsp");
+    label.forEach((event) => {
+      if (event.classList.contains("bg-[#0891b2]")) {
+        // console.log("hi");
+        event.classList.remove("bg-[#0891b2]");
+      }
+    });
+    e.target.classList.add("bg-[#0891b2]");
   };
 
   return (
@@ -116,25 +133,27 @@ export default function Home() {
                 {data[index].options &&
                   data[index].options.map((e: any, i: any) => {
                     return (
-                      <div
-                        key={i}
-                        className="p-3 align-middle bg-gray-600 text-white mb-3 last:mb-0 rounded-md flex justify-center hover:bg-orange-400"
-                      >
+                      <>
+                        {/* <div key={e}> */}
                         <input
                           type="radio"
-                          className="radio w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600   dark:bg-gray-700 dark:border-gray-600"
+                          className="radio hidden"
                           value={e}
-                          id={i}
+                          id={e}
                           name="radioButton"
-                          onChange={handelChange}
                         />
                         <label
-                          className="w-full  ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-                          htmlFor={i}
+                          htmlFor={e}
+                          key={i}
+                          onClick={handelChange}
+                          className="cursor-pointer labelsp p-4 bg-gray-600 text-white mb-3 last:mb-0 rounded-md block hover:bg-orange-400"
                         >
-                          {e}
+                          <span className="p-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
+                            {e}
+                          </span>
                         </label>
-                      </div>
+                        {/* </div> */}
+                      </>
                     );
                   })}
               </div>
