@@ -101,8 +101,8 @@ export default function Home() {
     });
     const label = document.querySelectorAll(".labelsp");
     label.forEach((event) => {
-      if (event.classList.contains("bg-[#0891b2]")) {
-        event.classList.remove("bg-[#0891b2]");
+      if (event.classList.contains("bg-green-500")) {
+        event.classList.remove("bg-green-500");
       }
     });
     // alert(score);
@@ -112,12 +112,12 @@ export default function Home() {
     setAns(e.target.htmlFor);
     const label = document.querySelectorAll(".labelsp");
     label.forEach((event) => {
-      if (event.classList.contains("bg-[#0891b2]")) {
+      if (event.classList.contains("bg-green-500")) {
         // console.log("hi");
-        event.classList.remove("bg-[#0891b2]");
+        event.classList.remove("bg-green-500");
       }
     });
-    e.target.classList.add("bg-[#0891b2]");
+    e.target.classList.add("bg-green-500");
   };
 
   return (
@@ -146,7 +146,7 @@ export default function Home() {
                           htmlFor={e}
                           key={i}
                           onClick={handelChange}
-                          className="cursor-pointer labelsp p-4 bg-gray-600 text-white mb-3 last:mb-0 rounded-md block hover:bg-orange-400"
+                          className="cursor-pointer	labelsp p-4 bg-gray-600 text-white mb-3 last:mb-0 rounded-md block hover:bg-orange-400"
                         >
                           <span className="p-3 ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">
                             {e}
