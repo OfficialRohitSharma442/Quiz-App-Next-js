@@ -2,7 +2,7 @@ import router from "next/router";
 import { useContext } from "react";
 import { themes } from "@/context/context";
 const WinPage = () => {
-  const { score, setScore } = useContext(themes);
+  const { score } = useContext(themes);
   const changePage = () => {
     router.push({
       pathname: "/",
@@ -20,14 +20,12 @@ const WinPage = () => {
             <div className="m-auto p-10 ">
               <button
                 type="button"
-                className="bg-gray-800 text-white-900 dark:bg-white-800 text-white border border-gray-800 hover:bg-white-900  focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white-600 dark:text-black-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800"
+                className="bg-gray-800 text-white-900 dark:bg-white-800 text-white border border-gray-800 hover:bg-white-900  focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center mr-2 mb-2 dark:border-white-600 dark:text-black-400 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-800 dark:bg-white dark:text-black"
                 onClick={changePage}
               >
                 re Attempt exam
               </button>
             </div>
-
-            {/* <button className="border-2 border-slate-400	border-solid	rounded-lg"></button> */}
           </div>
         </div>
       </div>
