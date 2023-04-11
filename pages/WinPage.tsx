@@ -11,7 +11,7 @@ const WinPage = () => {
   return (
     <>
       <div className="dark:bg-[#192734] h-[calc(100vh-44PX)] flex ">
-        <div className="maindiv  p-8 w-4/5 m-auto  bg-white-800 border-2 dark:bg-[#192734]	border-slate-400	border-solid	rounded-lg	">
+        <div className="maindiv  p-8 w-4/5 m-auto  bg-white border-4 dark:bg-[#192734]	border-white		border-solid rounded-lg	">
           {" "}
           <div className="secounddiv  w-4/5 m-auto mt-4 bg-white-800 justify-around flex flex-col">
             <div>

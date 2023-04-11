@@ -49,7 +49,7 @@ const Header = () => {
           </ul>
         </div>
       </div>
-      <div className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white active:text-orange-400">
+      <div className="hover:rotate-12 hover:duration-75	flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm  dark:text-white active:text-orange-400">
         <Image
           src={dark ? sun : moon}
           height={24}

@@ -1,15 +1,16 @@
 import router from "next/router";
-import { useContext, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
 // import WinPage from "./WinPage";
 import { themes } from "@/context/context";
 export default function Home() {
   const [index, setIndex] = useState<any>();
   // const { dark, setDark, darkMode , score, setScore} = useState(0);
-  const {score, setScore } = useContext(themes);
+  const { score, setScore } = useContext(themes);
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState();
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
   useEffect(() => {
+    setGeneratedNumbers([]);
     setIndex(Math.floor(Math.random() * 10));
   }, []);
   const data = [
@@ -84,7 +85,7 @@ export default function Home() {
       return null;
     }
     randomNumber = Math.floor(Math.random() * 10);
-    
+
     if (generatedNumbers.includes(randomNumber) || randomNumber == 0) {
       generateRandomNumber();
     }
@@ -95,9 +96,9 @@ export default function Home() {
     }, 1000);
     increseScore();
     let label = document.querySelectorAll(".labelsp");
-    console.log(label);
+    // console.log(label);
     label.forEach((elem: any) => {
-      console.log(elem.innerText);
+      // console.log(elem.innerText);
       if (elem.innerText === data[index].answer) {
         elem.classList;
         elem.classList.add("bg-green-400");
@@ -105,7 +106,7 @@ export default function Home() {
         elem.classList.add("bg-red-400");
       }
     });
-    console.log(generatedNumbers);
+    // console.log(generatedNumbers);
   };
 
   const increseScore = () => {
@@ -129,8 +130,8 @@ export default function Home() {
       }, 2000);
     });
     setFlag(false);
-    console.log("rendom array", generatedNumbers);
-    console.log("index => ", index);
+    // console.log("rendom array", generatedNumbers);
+    // console.log("index => ", index);
   };
   const handelChange = (e: any, result: any) => {
     // alert("hello")
@@ -162,8 +163,8 @@ export default function Home() {
                 {index
                   ? data[index].options.map((e: any, i: any) => {
                       return (
-                        <>
-                          <div className="" key={i + 1}>
+                        <Fragment key={i}>
+                          <div className="">
                             <input
                               type="radio"
                               className="radio hidden"
@@ -182,7 +183,7 @@ export default function Home() {
                               {e}
                             </label>
                           </div>
-                        </>
+                        </Fragment>
                       );
                     })
                   : " "}
