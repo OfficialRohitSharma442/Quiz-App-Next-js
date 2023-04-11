@@ -3,8 +3,8 @@ import type { AppProps } from "next/app";
 import Layout from "@/components/Layout";
 import { themes } from "../context/context";
 import { useState, useEffect } from "react";
-
 export default function App({ Component, pageProps }: AppProps) {
+  const [score, setScore] = useState(0);
   const [dark, setDark] = useState(false);
   const darkMode = () => {
     if (localStorage.getItem("DarkMode") !== "dark") {
@@ -27,7 +27,7 @@ export default function App({ Component, pageProps }: AppProps) {
     }
   }, []);
   return (
-    <themes.Provider value={{ dark, setDark, darkMode }}>
+    <themes.Provider value={{ dark, setDark, darkMode, score, setScore }}>
       <Layout>
         <Component {...pageProps} />
       </Layout>

@@ -1,13 +1,14 @@
+import router from "next/router";
 import { useContext, useEffect, useState } from "react";
-// import { themes } from "@/context/context";
+// import WinPage from "./WinPage";
+import { themes } from "@/context/context";
 export default function Home() {
   const [index, setIndex] = useState<any>();
-  const [score, setScore] = useState(0);
+  // const { dark, setDark, darkMode , score, setScore} = useState(0);
+  const {score, setScore } = useContext(themes);
   const [flag, setFlag] = useState(false);
   const [ans, setAns] = useState();
   const [generatedNumbers, setGeneratedNumbers] = useState<any>([]);
-  // const [dark, setDark] = useState(false);
-  // const { dark, setDark } = useContext(themes);
   useEffect(() => {
     setIndex(Math.floor(Math.random() * 10));
   }, []);
@@ -74,24 +75,24 @@ export default function Home() {
     },
   ];
   // console.log(data);
+  let randomNumber: any;
   const generateRandomNumber = () => {
-    if (generatedNumbers.length == data.length) {
-      alert(`Exam Completed Your Score is ${score} out of ${data.length - 1}`);
-
+    if (generatedNumbers.length + 1 == data.length) {
+      router.push({
+        pathname: "/WinPage",
+      });
       return null;
     }
-    let randomNumber: any = Math.floor(Math.random() * 10);
-    // while (){
-
-    // };
-    if (generatedNumbers.includes(randomNumber)) {
+    randomNumber = Math.floor(Math.random() * 10);
+    
+    if (generatedNumbers.includes(randomNumber) || randomNumber == 0) {
       generateRandomNumber();
     }
     setGeneratedNumbers([...generatedNumbers, randomNumber]);
     // console.log(generatedNumbers);
     setTimeout(() => {
       setIndex(randomNumber);
-    }, 2000);
+    }, 1000);
     increseScore();
     let label = document.querySelectorAll(".labelsp");
     console.log(label);
@@ -162,17 +163,17 @@ export default function Home() {
                   ? data[index].options.map((e: any, i: any) => {
                       return (
                         <>
-                          <div className="" key={e}>
+                          <div className="" key={i + 1}>
                             <input
                               type="radio"
                               className="radio hidden"
                               value={e}
-                              id={i}
+                              id={e}
                               name="radioButton"
                             />
                             <label
-                              htmlFor={i}
-                              key={i}
+                              htmlFor={e}
+                              //key={i}
                               onClick={(p) => {
                                 handelChange(p, e);
                               }}
